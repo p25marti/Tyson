@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import re
 import sys
 
@@ -6,7 +6,11 @@ from subprocess import check_output
 
 commit_msg_filepath = sys.argv[1]
 
+stdout_encoding = sys.stdout.encoding
+
 branch = check_output(['git', 'symbolic-ref', '--short', 'HEAD']).strip()
+branch = branch.decode(stdout_encoding)
+branch = branch.strip()
 
 # Skip special branches
 if branch in ['master', 'dev', 'stage']:
